@@ -1,0 +1,58 @@
+{
+  "name": "phantom-studio",
+  "version": "1.0.0",
+  "description": "Phantom Studio — Content Repurposing Tool",
+  "author": "Phantom",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --mac --win --linux"
+  },
+  "build": {
+    "appId": "com.phantom.studio",
+    "productName": "Phantom Studio",
+    "files": [
+      "main.js",
+      "setup.js",
+      "index.html",
+      "setup.html",
+      "processor.py",
+      "video_processor.py",
+      "assets/**"
+    ],
+    "extraResources": [
+      { "from": "processor.py",       "to": "scripts/processor.py" },
+      { "from": "video_processor.py", "to": "scripts/video_processor.py" },
+      { "from": "index.html",         "to": "index.html" },
+      { "from": "setup.html",         "to": "setup.html" }
+    ],
+    "mac": {
+      "icon": "assets/icon.png",
+      "category": "public.app-category.video",
+      "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }]
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [{ "target": "nsis", "arch": ["x64"] }]
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "target": [{ "target": "AppImage", "arch": ["x64"] }],
+      "category": "Video"
+    },
+    "dmg": { "title": "Phantom Studio" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icon.png",
+      "installerHeaderIcon": "assets/icon.png"
+    }
+  },
+  "devDependencies": {
+    "electron": "^29.4.6",
+    "electron-builder": "^26.8.1"
+  }
+}
